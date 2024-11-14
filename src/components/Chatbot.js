@@ -21,7 +21,7 @@ const Chatbot = () => {
           // Wait a little bit after initialization for images to render
           setTimeout(() => {
             replaceLogos(); // Try replacing logos after a short delay
-          }, 500); 
+          }, 3000); 
 
           // Use MutationObserver to detect when images are added to the DOM
           observeImageChanges();

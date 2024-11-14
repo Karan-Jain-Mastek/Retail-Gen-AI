@@ -18,6 +18,8 @@ const Chatbot = () => {
         try {
           new window.WidgetV3();
           console.log('WidgetV3 initialized successfully.');
+          // Now that the widget is initialized, let's replace the images
+          replaceLogos();
         } catch (error) {
           console.error('Error initializing WidgetV3:', error);
         }
@@ -28,6 +30,27 @@ const Chatbot = () => {
 
     // Ensure the widget script is loaded and then initialize it
     script.onload = initializeWidget;
+
+    // Image replacement function
+    const replaceLogos = () => {
+  
+        const firstImage = document.querySelector('img[src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg" alt="logo" style="width: 40px; height: 40px; margin-right: 10px; border-radius: 12.5px;"]');
+        if (firstImage) {
+          firstImage.src = 'mastek_branding_logo_image.jpg';
+        }
+  
+        const secondImage = document.querySelector('img[alt="Logo" src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg" style="width: 30px; height: 30px; top: 21%; border-radius: 50%; margin-left: 4px;"]');
+        if (secondImage) {
+          secondImage.src = 'mastek_branding_logo_image.jpg';
+        }
+  
+        const thirdImage = document.querySelector('img[src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg" alt="Company Logo" style="width: 100px; height: 100px; margin-bottom: 2px; border-radius: 12.5px;"]');
+        if (thirdImage) {
+          thirdImage.src = 'mastek_logo.jpg';
+        }
+  
+        console.log('Logos replaced successfully.');
+    };
 
     // Cleanup: Remove the script when the component unmounts
     return () => {

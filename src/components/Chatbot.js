@@ -18,8 +18,13 @@ const Chatbot = () => {
         try {
           new window.WidgetV3();
           console.log('WidgetV3 initialized successfully.');
-          // Now that the widget is initialized, let's replace the images
-          replaceLogos();
+          // Wait a little bit after initialization for images to render
+          setTimeout(() => {
+            replaceLogos(); // Try replacing logos after a short delay
+          }, 1000); // 1 second delay, adjust as needed
+
+          // Use MutationObserver to detect when images are added to the DOM
+          observeImageChanges();
         } catch (error) {
           console.error('Error initializing WidgetV3:', error);
         }
@@ -33,8 +38,6 @@ const Chatbot = () => {
 
     // Image replacement function
     const replaceLogos = () => {
-      // Check every 500ms if the images have been loaded
-      const intervalId = setInterval(() => {  
 
         const firstImage = document.querySelector('img[src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg"] [alt="logo"] [style="width: 40px; height: 40px; margin-right: 10px; border-radius: 12.5px"]');
         if (firstImage) {
@@ -56,13 +59,31 @@ const Chatbot = () => {
         } else {
             console.log('Third image not found.');
         }
-  
-        // If all images are replaced, stop the interval
+
+        console.log('All logos replaced successfully.');
+      };
+
+    // Use MutationObserver to watch for DOM changes and detect image insertion
+    const observeImageChanges = () => {
+      const observer = new MutationObserver(() => {
+        // Check for new images in the DOM
+        const firstImage = document.querySelector('img[src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg"] [alt="logo"] [style="width: 40px; height: 40px; margin-right: 10px; border-radius: 12.5px"]');
+        const secondImage = document.querySelector('img[alt="Logo"] [src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg"] [style="width: 30px; height: 30px; top: 21%; border-radius: 50%; margin-left: 4px"]');
+        const thirdImage = document.querySelector('img[src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg"] [alt="Company Logo"] [style="width: 100px; height: 100px; margin-bottom: 2px; border-radius: 12.5px"]');
+
         if (firstImage && secondImage && thirdImage) {
-          clearInterval(intervalId);
-          console.log('All logos replaced successfully.');
+          // Replace the images as soon as all are found
+          firstImage.src = '/mastek_branding_logo_image.jpg';
+          secondImage.src = '/mastek_branding_logo_image.jpg';
+          thirdImage.src = '/mastek_logo.jpg';
+
+          console.log('Logos replaced successfully.');
+          observer.disconnect(); // Stop observing after images are replaced
         }
-      }, 500); // Check every 500ms
+      });
+
+      // Start observing the body (or a more specific container if you know where the images are)
+      observer.observe(document.body, { childList: true, subtree: true });
     };
 
     // Cleanup: Remove the script when the component unmounts

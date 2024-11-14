@@ -1,0 +1,195 @@
+.dashboard {
+    margin-left: 288px; /* Align right of the navigation bar */
+    margin-top: 0; /* No top margin to touch the header */
+    width: calc(100% - 268px - 18px); /* Full width minus the width of the navigation */
+    background: #ECEFF5; /* Light gray background */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack rows vertically */
+    padding: 20px; /* Optional padding */
+    min-height: 180vh; /* Set minimum height to cover the full viewport height */
+}
+
+.row {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space items evenly */
+    margin-bottom: 20px; /* Space between rows */
+}
+
+.card-block {
+    background: white; /* White background for card */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 20px 20px; /* Reduced padding to adjust top and bottom space */
+    flex: 1; /* Allow cards to grow */
+    margin: 0 5px; /* Reduced margin between cards */
+    min-width: 120px; /* Minimum width for cards */
+    text-align: left; /* Left-align text */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+}
+
+.card-divider {
+    border: none; /* Remove default border */
+    height: 1px; /* Set height */
+    background-color: #000000; /* Color for the divider */
+    margin: 10px 0; /* Spacing around the divider */
+}
+
+/* Style for the logos */
+.card-icon {
+    width: 18px; /* Set a smaller width */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between image and heading */
+}
+
+/* Specific styles for the first row of card blocks */
+.card-block h3 {
+    font-size: 13px; /* Adjust the size of the headings */
+    font-weight: bold; /* Keep headings bold */
+}
+
+.card-header {
+    display: flex; /* Flexbox for logo and header */
+    align-items: center; /* Align logo and header vertically */
+}
+
+.card-content {
+    text-align: center; /* Center-align figures and descriptions */
+}
+
+/* Style for the figures in the card content */
+.card-block .figure {
+    font-size: 16px; /* Larger font size for figures */
+    font-weight: bold; /* Make figures bold */
+    color: black; /* Set color of figures to black */
+    display: block; /* Ensure each figure is on a new line */
+    margin-top: 11px; /* Space above the figures */
+}
+
+/* Style for the descriptive text in the card content */
+.card-block .description {
+    font-size: 13px; /* Smaller font size for text */
+    color: grey; /* Set text color to grey */
+    font-weight: normal; /* Normal weight for descriptive text */
+}
+
+.opportunity-header {
+    display: flex;
+    align-items: center;
+}
+
+.opportunity-logo {
+    width: 30px; /* Adjust size as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 15px; /* Space between logo and title */
+    flex-shrink: 0; /* Prevent the logo from shrinking */
+}
+
+.opportunity-title {
+    display: flex;
+    flex-direction: column; /* Stack title and tagline */
+    justify-content: center; /* Center title and tagline vertically */
+}
+
+.opportunity-title-text {
+    font-size: 16px; /* Decrease font size */
+    font-weight: bold; /* Make it bold */
+    margin: 0; /* Remove default margin */
+}
+
+.opportunity-tagline {
+    font-size: 12px; /* Adjust size as needed */
+    color: grey; /* Light color for tagline */
+    margin: 0; /* Remove default margin */
+    margin-top: 3px; /* Space above the tagline */
+}
+
+.opportunity-table-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 200px; /* Set a max height for vertical scrolling */
+    margin-top: 20px; /* Space about the table */
+}
+
+.opportunity-table {
+    width: 100%; /* Full width for the table */
+    border-collapse: collapse; /* Merge table borders */
+}
+
+.opportunity-table th {
+    background-color: lightgrey; /* Light grey for headers */
+    padding: 10px; /* Padding for table cells */
+    border: 1px solid black; /* Dark border for headers */
+    font-size: 12px; /* Decrease font size for table data */
+}
+
+.opportunity-table td {
+    background-color: white; /* White for table rows */
+    padding: 10px; /* Padding for table cells */
+    border: 1px solid black; /* Dark border for cells */
+    font-size: 12px; /* Decrease font size for table data */
+}
+
+.analysis-block {
+    flex: 1; /* Allow analysis blocks to grow */
+    background: white; /* White background for analysis */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 20px; /* Padding inside analysis block */
+    margin: 0 5px; /* Reduced margin between analysis blocks */
+}
+
+.swor-header {
+    display: flex;
+    align-items: center;
+}
+
+.swor-logo {
+    width: 30px; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between logo and title */
+}
+
+.swor-title {
+    font-size: 16px; /* Adjust size as needed */
+    font-weight: bold; /* Make it bold */
+    margin: 0; /* Remove default margin */
+}
+
+.tabs {
+    display: flex; /* Horizontal layout for tabs */
+    border-bottom: 2px solid black; /* Line below tabs */
+    margin-top: 13px; /* Space above the tabs */
+}
+
+.tab {
+    padding: 10px 15px; /* Padding for tabs */
+    cursor: pointer; /* Change cursor on hover */
+    color: grey; /* Default text color for tabs */
+    font-size: 15px; /* Decreased font size */
+    transition: color 0.3s; /* Smooth transition */
+}
+
+.tab.active {
+    color: #011589; /* Text color for active tab */
+    font-weight: bold; /* Make active tab text bold */
+}
+
+.tab-divider {
+    height: 2px; /* Height of the horizontal line */
+    color: #011589; /* Same blue color for active tab */
+    margin: 0; /* Remove default margin */
+}
+
+.tab-content {
+    padding: 15px; /* Padding for content */
+    font-size: 13px; /* Decreased font size */
+}
+
+.footer {
+    text-align: center;
+    padding: 5px;
+    background-color: transparent; /* Remove any background color */
+    color: #000000; /* Text color */
+    font-weight: 600; /* Semi-bold text */
+}

@@ -1,0 +1,24 @@
+.__intelli_main-container {
+    bottom: 20px !important; /* Position from bottom */
+    right: 20px !important; /* Position from right */
+    left: auto !important; /* Ensure left positioning is disabled */
+    z-index: 51000 !important; /* Ensure it stays above other elements */
+    height: auto !important; /* Allow height to adjust automatically */
+}
+
+.__intelli_inner-container {
+    right: 0 !important; /* Override any left positioning */
+}
+
+.__intelli_main-button {
+    position: fixed !important; /* Force the position to be fixed */
+    bottom: 50px !important; /* Distance from the bottom */
+    right: 50px !important; /* Distance from the right */
+    z-index: 1000 !important; /* Ensure it's above other elements */
+    width: 60px !important; /* Increase width */
+    height: 60px !important; /* Increase height */
+}
+  
+.__intelli_main-button:hover {
+    background-color: black !important; /* Lighter shade on hover */
+}

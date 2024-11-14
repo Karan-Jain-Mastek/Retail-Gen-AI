@@ -1,0 +1,82 @@
+.sku-rationalization-container {
+    padding: 20px;
+    margin-left: 288px; /* Align right of the navigation bar */
+}
+
+.sku-rationalization-chart-card {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.sku-rationalization-pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+  
+.sku-rationalization-pagination-controls button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.sku-rationalization-pagination-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+  
+.sku-rationalization-chart-card h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold; /* Make the text bold */
+    color: #333;
+}
+
+.sku-rationalization-back-button {
+    display: inline-block;
+    margin: 20px auto;
+    margin-left: 408px; /* Putting it in the center */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.sku-rationalization-back-button:hover {
+    background-color: #0056b3;
+}
+
+.sku-rationalization-tabs {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+}
+
+.sku-rationalization-tab {
+    margin-right: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    background-color: #e9ecef;
+}
+
+.sku-rationalization-tab:hover {
+    background-color: #ddd;
+}
+
+.sku-rationalization-tab.active {
+    background-color: #fff;
+    border-bottom: 2px solid #007bff;
+}
+
+.sku-rationalization-chart-container {
+    margin-top: 20px;
+}

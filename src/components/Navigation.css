@@ -1,0 +1,43 @@
+.navigation {
+    position: fixed; /* Keep it fixed on the left side */
+    top: 82px; /* Align directly below the header */
+    left: 0; /* Align to the left */
+    width: 285px; /* Width of the navigation bar */
+    height: calc(100% - 82px); /* Full height minus the header */
+    background: #011589; /* Dark blue background */
+    padding: 20px; /* Optional padding for content */
+    padding-top: 26px; /* Add space at the top */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+    padding-bottom: 52px; /* Add space at the bottom */
+    overflow: auto; /* Hide scrollbar in navigation */
+}
+
+.nav-section {
+    margin-bottom: 20px; /* Space between sections */
+}
+
+.nav-item {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    color: white; /* White font color */
+    text-decoration: none; /* Remove underline */
+    padding: 8px 0; /* Reduced padding for better spacing */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 14px; /* Reduced font size */
+    font-weight: 600; /* Semi-bold text */
+}
+
+.nav-icon {
+    width: 20px; /* Adjust icon size */
+    height: 20px; /* Adjust icon size */
+    margin-right: 10px; /* Spacing between icon and text */
+}
+
+.nav-item:hover {
+    color: #f0f0f0; /* Lighter color on hover */
+}
+
+hr {
+    border: 1px solid #ccc; /* Grey line for separation */
+    margin: 10px 0; /* Margin for spacing */
+}

@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Aptos:wght@700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Aptos', sans-serif;
+  background-color: #f8f9fa; /* Light background color */
+  color: #333; /* Default text color */
+  overflow: hidden; /* Hide scrollbar on body */
+}
+
+.app {
+  display: flex;
+  flex-direction: row; /* Row direction to place navigation and dashboard side by side */
+  height: 100vh; /* Full viewport height */
+  overflow: auto; /* Allow scrolling for the entire app */
+}
+
+.header {
+  position: fixed; /* Keep it at the top */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 82px;
+  background: #ffffff;
+  opacity: 1;
+  display: flex; /* Flex layout for alignment */
+  align-items: center; /* Center items vertically */
+  padding: 0 40px; /* Increased padding for right alignment */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  z-index: 1000; /* Ensure it stays above other content */
+  justify-content: space-between; /* Space between site name and header-right */
+}
+
+.header-right {
+  margin-left: auto; /* Push the text to the right */
+  font-size: 16px; /* Adjust size as needed */
+}
+
+.site-name {
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Center items vertically */
+  padding-left: 10px; /* Adjust padding to move left */
+}
+
+.site-name h1 {
+  margin: 0;
+  font-size: 20px; /* Size for the site name */
+  font-weight: bold; /* Make text bold */
+}
+
+.site-name p {
+  margin: 0;
+  font-size: 16px; /* Size for the tagline */
+  color: rgba(35, 33, 33, 0.7); /* Slightly lighter for tagline */
+  font-weight: bold; /* Make text bold */
+}
+
+.site-logo {
+  width: 40px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 10px; /* Space between image and text */
+  vertical-align: middle; /* Align vertically with text */
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  flex: 1; /* Take remaining space */
+  padding-top: 82px; /* Space for the fixed header */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.footer {
+  text-align: center;
+  padding: 10px;
+  color: #000000;
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+
+body {
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+  scrollbar-width: none; /* Firefox */
+}

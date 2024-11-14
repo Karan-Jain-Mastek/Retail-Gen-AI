@@ -33,7 +33,9 @@ const Chatbot = () => {
 
     // Image replacement function
     const replaceLogos = () => {
-  
+      // Check every 500ms if the images have been loaded
+      const intervalId = setInterval(() => {  
+
         const firstImage = document.querySelector('img[src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg" alt="logo" style="width: 40px; height: 40px; margin-right: 10px; border-radius: 12.5px;"]');
         if (firstImage) {
           firstImage.src = 'mastek_branding_logo_image.jpg';
@@ -49,7 +51,12 @@ const Chatbot = () => {
           thirdImage.src = 'mastek_logo.jpg';
         }
   
-        console.log('Logos replaced successfully.');
+        // If all images are replaced, stop the interval
+        if (firstImage && secondImage && thirdImage) {
+          clearInterval(intervalId);
+          console.log('All logos replaced successfully.');
+        }
+      }, 500); // Check every 500ms
     };
 
     // Cleanup: Remove the script when the component unmounts

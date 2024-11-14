@@ -36,17 +36,17 @@ const Chatbot = () => {
       // Check every 500ms if the images have been loaded
       const intervalId = setInterval(() => {  
 
-        const firstImage = document.querySelector('img[src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg" alt="logo" style="width: 40px; height: 40px; margin-right: 10px; border-radius: 12.5px;"]');
+        const firstImage = document.querySelector('img[src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg" alt="logo" style="width: 40px; height: 40px; margin-right: 10px; border-radius: 12.5px"]');
         if (firstImage) {
           firstImage.src = 'mastek_branding_logo_image.jpg';
         }
   
-        const secondImage = document.querySelector('img[alt="Logo" src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg" style="width: 30px; height: 30px; top: 21%; border-radius: 50%; margin-left: 4px;"]');
+        const secondImage = document.querySelector('img[alt="Logo" src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg" style="width: 30px; height: 30px; top: 21%; border-radius: 50%; margin-left: 4px"]');
         if (secondImage) {
           secondImage.src = 'mastek_branding_logo_image.jpg';
         }
   
-        const thirdImage = document.querySelector('img[src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg" alt="Company Logo" style="width: 100px; height: 100px; margin-bottom: 2px; border-radius: 12.5px;"]');
+        const thirdImage = document.querySelector('img[src="https://image.isu.pub/220606134901-e7dc18a7c73e787292ff81100bf50b56/jpg/page_1_thumb_large.jpg" alt="Company Logo" style="width: 100px; height: 100px; margin-bottom: 2px; border-radius: 12.5px"]');
         if (thirdImage) {
           thirdImage.src = 'mastek_logo.jpg';
         }

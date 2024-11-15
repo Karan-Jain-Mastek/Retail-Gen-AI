@@ -4,6 +4,7 @@ import Navigation from './Navigation';
 import Dashboard from './Dashboard';
 import Chatbot from './Chatbot';
 import SKU_Rationalization from './SKU_Rationalization';
+import Logistics from './Logistics';
 import './App.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/sku-rationalization" element={<SKU_Rationalization />} />
+            <Route path="/logistics" element={<Logistics />} />
             {/* Add more routes as needed */}
           </Routes>
         </div>

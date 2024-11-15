@@ -44,6 +44,10 @@ const Navigation = () => {
       </div>
       <hr />
       <div className="nav-section">
+        <Link to="/logistics" className="nav-item"> {/* Wrap with Link */}
+          <img src="logistics_analysis.png" alt="Logistics Analysis" className="nav-icon" />
+          Logistics Analysis
+        </Link>
         <div className="nav-item">
           <img src="price_optimization.png" alt="Price Optimization" className="nav-icon" />
           Price Optimization Analysis

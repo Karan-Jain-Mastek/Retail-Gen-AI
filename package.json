@@ -16,6 +16,7 @@
     "highcharts": "^11.4.8",
     "highcharts-map": "^0.1.7",
     "highcharts-react-official": "^3.2.1",
+    "mapbox-gl": "^3.8.0",
     "react": "^18.3.1",
     "react-apexcharts": "^1.4.1",
     "react-chartjs-2": "^5.2.0",

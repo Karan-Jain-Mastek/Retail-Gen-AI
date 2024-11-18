@@ -1,6 +1,7 @@
 .logistics-container {
     padding: 20px;
     margin-left: 288px; /* Align right of the navigation bar */
+    position: relative;
 }
 
 .logistics-chart-card {
@@ -10,6 +11,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f9;
+    position: relative;
 }
 
 .logistics-pagination-controls {
@@ -58,6 +60,7 @@
 .logistics-tabs {
     display: flex;
     border-bottom: 2px solid #ddd;
+    position: relative;
 }
 
 .logistics-tab {
@@ -66,6 +69,7 @@
     cursor: pointer;
     border-radius: 5px 5px 0 0;
     background-color: #e9ecef;
+    position: relative;
 }
 
 .logistics-tab:hover {
@@ -79,13 +83,60 @@
 
 .logistics-chart-container {
     margin-top: 20px;
+    position: relative;
     overflow: hidden; /* Prevent map overflow */
 }
 
 /* Add CSS to ensure the map container has proper height and width */
 #logistics-map {
     height: 500px; /* Ensure the map has a fixed height */
+    position: relative !important;  /* Ensure map container is positioned */
     width: 100%;   /* Ensure the map stretches to fill the width of its parent container */
     border-radius: 8px; /* Optional: adds rounded corners to the map */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Optional: adds shadow for better visual distinction */
 }
+
+/* Hover effect for markers */
+.mapboxgl-marker:hover {
+    transform: scale(1.2); /* Slightly enlarge on hover */
+    position: relative;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Ensure popups have absolute positioning and a high z-index */
+.mapboxgl-popup {
+    position: absolute !important;
+    z-index: 9999 !important;
+    transform: translate(-50%, -100%) !important; /* Adjust the position relative to the marker */
+    pointer-events: auto;
+}
+
+/* Pop-up styles */
+.popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.popup-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.popup-content p {
+    margin: 5px 0;
+}  
+
+.popup-content p strong {
+    color: #007cbf;  /* Highlight the labels with blue */
+}
+
+/* Tooltip-style pop-up offset */
+.mapboxgl-popup-content {
+    max-width: 300px;
+}
+  
+  

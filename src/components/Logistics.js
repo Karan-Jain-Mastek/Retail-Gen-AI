@@ -11,51 +11,106 @@ const Logistics = () => {
   const mapRefTab1 = useRef(null);
   const mapRefTab2 = useRef(null);
 
-  // Sample shipment data with fixed coordinates for New York, San Francisco, and Chicago
-  const shipmentData = [
-    { id: 1, source: 'Warehouse 1', destination: 'Warehouse Target', lat: 40.712776, lng: -74.005974, temperature: 72, humidity: 50, vibration: 0, alert: false }, // New York
-    { id: 2, source: 'Warehouse 2', destination: 'Warehouse Target', lat: 37.774929, lng: -122.419418, temperature: 68, humidity: 45, vibration: 0, alert: false }, // San Francisco
-    { id: 3, source: 'Warehouse 3', destination: 'Warehouse Target', lat: 41.878113, lng: -87.629799, temperature: 70, humidity: 60, vibration: 1, alert: true }, // Chicago
-  ];
-
+  const vendorData = [
+    // Vendors for New York (positions are encircling around the target warehouse)
+    { vendorName: 'Vendor A', latitude: 40.710610, longitude: -74.035242, warehouse: 'New York', state: 'New Jersey', vendorType: 'Raw Material Supplier' }, // South-West of New York
+    { vendorName: 'Vendor B', latitude: 40.650002, longitude: -74.049997, warehouse: 'New York', state: 'New Jersey', vendorType: 'Raw Material Supplier' }, // West of New York
+    { vendorName: 'Vendor C', latitude: 40.7831, longitude: -73.9512, warehouse: 'New York', state: 'New York', vendorType: 'Wholesale Distributor' }, // North-West of New York
+    { vendorName: 'Vendor D', latitude: 40.900000, longitude: -73.935000, warehouse: 'New York', state: 'New York', vendorType: 'Contract Manufacturer' }, // North of New York
+    
+    // Vendors for Chicago (positions are encircling around the target warehouse)
+    { vendorName: 'Vendor E', latitude: 41.9300, longitude: -87.7100, warehouse: 'Chicago', state: 'Illinois', vendorType: 'Raw Material Supplier' }, // South-West of Chicago
+    { vendorName: 'Vendor F', latitude: 41.8600, longitude: -87.7500, warehouse: 'Chicago', state: 'Illinois', vendorType: 'Wholesale Distributor' }, // West of Chicago
+    { vendorName: 'Vendor G', latitude: 41.8000, longitude: -87.6700, warehouse: 'Chicago', state: 'Illinois', vendorType: 'Contract Manufacturer' }, // North-West of Chicago
+    { vendorName: 'Vendor H', latitude: 41.7550, longitude: -87.6250, warehouse: 'Chicago', state: 'Indiana', vendorType: 'Retail Distributor' }, // South of Chicago
+    
+    // Vendors for Mumbai (positions are encircling around the target warehouse)
+    { vendorName: 'Vendor I', latitude: 19.1460, longitude: 72.9077, warehouse: 'Mumbai', state: 'Maharashtra', vendorType: 'Raw Material Supplier' }, // South-West of Mumbai
+    { vendorName: 'Vendor J', latitude: 19.0800, longitude: 72.9300, warehouse: 'Mumbai', state: 'Maharashtra', vendorType: 'Raw Material Supplier' }, // West of Mumbai
+    { vendorName: 'Vendor K', latitude: 19.1260, longitude: 72.8777, warehouse: 'Mumbai', state: 'Maharashtra', vendorType: 'Raw Material Supplier' }, // North-West of Mumbai
+    { vendorName: 'Vendor L', latitude: 19.1100, longitude: 72.9500, warehouse: 'Mumbai', state: 'Maharashtra', vendorType: 'Wholesale Distributor' }, // North-East of Mumbai
+    
+    // Vendors for London (positions are encircling around the target warehouse)
+    { vendorName: 'Vendor M', latitude: 51.5074, longitude: -0.2178, warehouse: 'London', state: 'England', vendorType: 'Retail Distributor' }, // South-West of London
+    { vendorName: 'Vendor N', latitude: 51.5400, longitude: -0.1200, warehouse: 'London', state: 'England', vendorType: 'Wholesale Distributor' }, // West of London
+    { vendorName: 'Vendor O', latitude: 51.5350, longitude: -0.0800, warehouse: 'London', state: 'England', vendorType: 'Raw Material Supplier' }, // North-West of London
+    { vendorName: 'Vendor P', latitude: 51.4550, longitude: -0.1278, warehouse: 'London', state: 'England', vendorType: 'Raw Material Supplier' }  // North of London
+  ];  
+  
   // Mapbox access token
   const mapboxAccessToken = 'pk.eyJ1Ijoia2FyYW4tamFpbiIsImEiOiJjbTNpb3E3N2UwMzlxMmlzOGt1d3k1dmVsIn0.DXTx9XN00quR83ilqD1M8w'; 
   mapboxgl.accessToken = mapboxAccessToken;
 
-  // Function to initialize the map and add markers
+  // Function to initialize the map and add vendor markers
   const initializeMap = (containerId) => {
     const map = new mapboxgl.Map({
       container: containerId, // Container ID
       style: 'mapbox://styles/mapbox/navigation-night-v1', 
-      // Used the Navigation Night Style URL 
-      center: [shipmentData[0].lng, shipmentData[0].lat], // Center the map on New York initially
+      center: [vendorData[0].longitude, vendorData[0].latitude], // Center the map on the first vendor (New York)
       zoom: 4, // Initial zoom level (adjust for visibility)
-      attributionControl: true, // Ensure Mapbox attribution is visible
+      attributionControl: false, // Ensure Mapbox attribution is not visible
     });
 
-    // Add markers for shipments
-    shipmentData.forEach((shipment) => {
-      new mapboxgl.Marker({
-        color: shipment.alert ? 'red' : 'green', // Red for alert, green for normal
-      })
-        .setLngLat([shipment.lng, shipment.lat]) // Set the correct latitude and longitude for each marker
-        .setPopup(
-          new mapboxgl.Popup({ closeButton: false, closeOnClick: false }) // Customizing popup behavior
-            .setHTML(`
-              <h4>Shipment Info</h4>
-              <p>Source: ${shipment.source}</p>
-              <p>Destination: ${shipment.destination}</p>
-              <p>Temperature: ${shipment.temperature}°F</p>
-              <p>Humidity: ${shipment.humidity}%</p>
-              <p>Vibration: ${shipment.vibration}</p>
-              <p>Status: ${shipment.alert ? '<strong style="color:red;">Alert</strong>' : 'Normal'}</p>
-            `)
-        )
-        .addTo(map); // Add the marker to the map
+    // Convert vendor data into GeoJSON format
+    const geoJsonData = {
+      type: 'FeatureCollection',
+      features: vendorData.map((vendor) => ({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [vendor.longitude, vendor.latitude],
+        },
+        properties: {
+          vendorName: vendor.vendorName,
+          warehouse: vendor.warehouse,
+          state: vendor.state,
+          vendorType: vendor.vendorType,
+        },
+      })),
+    };
+
+    // Add GeoJSON source to the map
+    map.on('load', () => {
+      map.addSource('vendors', {
+        type: 'geojson',
+        data: geoJsonData, // The GeoJSON data you created above
+      });
+
+      // Add a layer to visualize the vendor markers using the default Mapbox icon
+      map.addLayer({
+        id: 'vendor-markers',
+        type: 'symbol',
+        source: 'vendors',
+        layout: {
+          'icon-image': 'rocket-15', // Default Mapbox marker icon (circle)
+          'icon-size': 1, // Adjust the size of the vendor icon (optional)
+        },
+      });
+
+      // Add popups on click
+      map.on('click', 'vendor-markers', (e) => {
+        const { vendorName, warehouse, state, vendorType } = e.features[0].properties;
+        new mapboxgl.Popup({
+            anchor: 'bottom', 
+            offset: 10,
+            closeButton: true, 
+            closeOnClick: false, 
+            maxWidth: 'none',
+            autoPan: true, // Ensures the map is panned if popup overflows
+        })
+          .setLngLat(e.lngLat)
+          .setHTML(`
+            <div class="popup-content">
+              <h4 class="popup-title">${vendorName}</h4>
+              <p><strong>Warehouse:</strong> ${warehouse}</p>
+              <p><strong>State:</strong> ${state}</p>
+              <p><strong>Vendor Type:</strong> ${vendorType}</p>
+            </div>
+          `)
+          .addTo(map);
+      });
     });
 
-    // After markers are added, the map should stay centered around the first marker (New York)
-    // No fitBounds needed, just center the map correctly at first load
     return map;
   };
 
@@ -63,9 +118,16 @@ const Logistics = () => {
   useEffect(() => {
     if (activeTab === 0 && !mapRefTab1.current) {
       mapRefTab1.current = initializeMap('logistics-map-tab1');
+    } else if (mapRefTab1.current) {
+      mapRefTab1.current.flyTo({
+        center: [vendorData[0].longitude, vendorData[0].latitude],
+        zoom: 4,
+        speed: 1.5,
+        curve: 1,
+        easing: (t) => t,
+      });
     }
 
-    // Clean up the map instance when switching away from this tab
     return () => {
       if (mapRefTab1.current) {
         mapRefTab1.current.remove();
@@ -78,9 +140,16 @@ const Logistics = () => {
   useEffect(() => {
     if (activeTab === 1 && !mapRefTab2.current) {
       mapRefTab2.current = initializeMap('logistics-map-tab2');
+    } else if (mapRefTab2.current) {
+      mapRefTab2.current.flyTo({
+        center: [vendorData[1].longitude, vendorData[1].latitude],
+        zoom: 4,
+        speed: 1.5,
+        curve: 1,
+        easing: (t) => t,
+      });
     }
 
-    // Clean up the map instance when switching away from this tab
     return () => {
       if (mapRefTab2.current) {
         mapRefTab2.current.remove();
@@ -96,9 +165,7 @@ const Logistics = () => {
   return (
     <div className="logistics-container">
       <div className="logistics-chart-card">
-        <h3>Logistics Overview - Supply Chain Alerts and Optimization</h3>
-
-        {/* Tabs */}
+        <h3>Logistics Overview - Vendor Locations</h3>
         <div className="logistics-tabs">
           <div
             className={`logistics-tab ${activeTab === 0 ? 'active' : ''}`}
@@ -114,13 +181,12 @@ const Logistics = () => {
           </div>
         </div>
 
-        {/* Tab Content */}
         <div className="logistics-chart-container">
           {activeTab === 0 && (
-            <div id="logistics-map-tab1" style={{ height: '500px', width: '100%' }}></div>
+            <div id="logistics-map-tab1" className="map" style={{ height: '500px', width: '100%' }}></div>
           )}
           {activeTab === 1 && (
-            <div id="logistics-map-tab2" style={{ height: '500px', width: '100%' }}></div>
+            <div id="logistics-map-tab2" className="map" style={{ height: '500px', width: '100%' }}></div>
           )}
         </div>
       </div>

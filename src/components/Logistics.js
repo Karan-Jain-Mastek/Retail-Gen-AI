@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom'; // Importing Link for navigation
 import './Logistics.css';
 import mapboxgl from 'mapbox-gl';
@@ -7,23 +7,29 @@ import mapboxgl from 'mapbox-gl';
 const Logistics = () => {
   const [activeTab, setActiveTab] = useState(0);
 
-  // Sample shipment data
+  // Refs to hold map instances for each tab
+  const mapRefTab1 = useRef(null);
+  const mapRefTab2 = useRef(null);
+
+  // Sample shipment data with fixed coordinates for New York, San Francisco, and Chicago
   const shipmentData = [
-    { id: 1, source: 'Warehouse 1', destination: 'Warehouse Target', lat: 40.712776, lng: -74.005974, temperature: 72, humidity: 50, vibration: 0, alert: false },
-    { id: 2, source: 'Warehouse 2', destination: 'Warehouse Target', lat: 34.052235, lng: -118.243683, temperature: 68, humidity: 45, vibration: 0, alert: false },
-    { id: 3, source: 'Warehouse 3', destination: 'Warehouse Target', lat: 41.878113, lng: -87.629799, temperature: 70, humidity: 60, vibration: 1, alert: true },
+    { id: 1, source: 'Warehouse 1', destination: 'Warehouse Target', lat: 40.712776, lng: -74.005974, temperature: 72, humidity: 50, vibration: 0, alert: false }, // New York
+    { id: 2, source: 'Warehouse 2', destination: 'Warehouse Target', lat: 37.774929, lng: -122.419418, temperature: 68, humidity: 45, vibration: 0, alert: false }, // San Francisco
+    { id: 3, source: 'Warehouse 3', destination: 'Warehouse Target', lat: 41.878113, lng: -87.629799, temperature: 70, humidity: 60, vibration: 1, alert: true }, // Chicago
   ];
 
   // Mapbox access token
-  const mapboxAccessToken = 'pk.eyJ1Ijoia2FyYW4tamFpbiIsImEiOiJjbTNpb3E3N2UwMzlxMmlzOGt1d3k1dmVsIn0.DXTx9XN00quR83ilqD1M8w'; // Replace with your actual token
+  const mapboxAccessToken = 'pk.eyJ1Ijoia2FyYW4tamFpbiIsImEiOiJjbTNpb3E3N2UwMzlxMmlzOGt1d3k1dmVsIn0.DXTx9XN00quR83ilqD1M8w'; 
   mapboxgl.accessToken = mapboxAccessToken;
 
+  // Function to initialize the map and add markers
   const initializeMap = (containerId) => {
-    const newMap = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
       container: containerId, // Container ID
       style: 'mapbox://styles/mapbox/streets-v11', // Map style
-      center: [shipmentData[0].lng, shipmentData[0].lat], // Default map center from first shipment
-      zoom: 10, // Default zoom
+      center: [shipmentData[0].lng, shipmentData[0].lat], // Center the map on New York initially
+      zoom: 4, // Initial zoom level (adjust for visibility)
+      attributionControl: true, // Ensure Mapbox attribution is visible
     });
 
     // Add markers for shipments
@@ -31,44 +37,53 @@ const Logistics = () => {
       new mapboxgl.Marker({
         color: shipment.alert ? 'red' : 'green', // Red for alert, green for normal
       })
-        .setLngLat([shipment.lng, shipment.lat])
+        .setLngLat([shipment.lng, shipment.lat]) // Set the correct latitude and longitude for each marker
         .setPopup(
-          new mapboxgl.Popup().setHTML(`
-            <h4>Shipment Info</h4>
-            <p>Source: ${shipment.source}</p>
-            <p>Destination: ${shipment.destination}</p>
-            <p>Temperature: ${shipment.temperature}°F</p>
-            <p>Humidity: ${shipment.humidity}%</p>
-            <p>Vibration: ${shipment.vibration}</p>
-            <p>Status: ${shipment.alert ? '<strong style="color:red;">Alert</strong>' : 'Normal'}</p>
-          `)
+          new mapboxgl.Popup({ closeButton: false, closeOnClick: false }) // Customizing popup behavior
+            .setHTML(`
+              <h4>Shipment Info</h4>
+              <p>Source: ${shipment.source}</p>
+              <p>Destination: ${shipment.destination}</p>
+              <p>Temperature: ${shipment.temperature}°F</p>
+              <p>Humidity: ${shipment.humidity}%</p>
+              <p>Vibration: ${shipment.vibration}</p>
+              <p>Status: ${shipment.alert ? '<strong style="color:red;">Alert</strong>' : 'Normal'}</p>
+            `)
         )
-        .addTo(newMap);
+        .addTo(map); // Add the marker to the map
     });
+
+    // After markers are added, the map should stay centered around the first marker (New York)
+    // No fitBounds needed, just center the map correctly at first load
+    return map;
   };
 
   // Initialize map for Tab 1 (Transit Logistics) when it becomes active
   useEffect(() => {
-    if (activeTab === 0) {
-      initializeMap('logistics-map-tab1');
+    if (activeTab === 0 && !mapRefTab1.current) {
+      mapRefTab1.current = initializeMap('logistics-map-tab1');
     }
+
+    // Clean up the map instance when switching away from this tab
     return () => {
-      const map1 = document.getElementById('logistics-map-tab1');
-      if (map1) {
-        map1.innerHTML = ''; // Clean up map container
+      if (mapRefTab1.current) {
+        mapRefTab1.current.remove();
+        mapRefTab1.current = null;
       }
     };
   }, [activeTab]);
 
   // Initialize map for Tab 2 (In-Place Logistics) when it becomes active
   useEffect(() => {
-    if (activeTab === 1) {
-      initializeMap('logistics-map-tab2');
+    if (activeTab === 1 && !mapRefTab2.current) {
+      mapRefTab2.current = initializeMap('logistics-map-tab2');
     }
+
+    // Clean up the map instance when switching away from this tab
     return () => {
-      const map2 = document.getElementById('logistics-map-tab2');
-      if (map2) {
-        map2.innerHTML = ''; // Clean up map container
+      if (mapRefTab2.current) {
+        mapRefTab2.current.remove();
+        mapRefTab2.current = null;
       }
     };
   }, [activeTab]);
@@ -80,7 +95,7 @@ const Logistics = () => {
   return (
     <div className="logistics-container">
       <div className="logistics-chart-card">
-        <h3>Logistics Overview</h3>
+        <h3>Logistics Overview - Supply Chain Alerts and Optimization</h3>
 
         {/* Tabs */}
         <div className="logistics-tabs">

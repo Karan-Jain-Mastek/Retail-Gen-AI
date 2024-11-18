@@ -26,7 +26,8 @@ const Logistics = () => {
   const initializeMap = (containerId) => {
     const map = new mapboxgl.Map({
       container: containerId, // Container ID
-      style: 'mapbox://styles/mapbox/streets-v11', // Map style
+      style: 'mapbox://styles/mapbox/navigation-night-v1', 
+      // Used the Navigation Night Style URL 
       center: [shipmentData[0].lng, shipmentData[0].lat], // Center the map on New York initially
       zoom: 4, // Initial zoom level (adjust for visibility)
       attributionControl: true, // Ensure Mapbox attribution is visible

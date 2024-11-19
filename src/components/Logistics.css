@@ -89,7 +89,7 @@
 
 /* Add CSS to ensure the map container has proper height and width */
 #logistics-map {
-    height: 500px; /* Ensure the map has a fixed height */
+    height: 500px !important; /* Ensure the map has a fixed height */
     position: relative !important;  /* Ensure map container is positioned */
     width: 100%;   /* Ensure the map stretches to fill the width of its parent container */
     border-radius: 8px; /* Optional: adds rounded corners to the map */
@@ -105,10 +105,10 @@
 
 /* Ensure popups have absolute positioning and a high z-index */
 .mapboxgl-popup {
-    position: absolute !important;
-    z-index: 9999 !important;
-    transform: translate(-50%, -100%) !important; /* Adjust the position relative to the marker */
-    pointer-events: auto;
+    position: absolute !important; /* Ensure proper positioning */
+    pointer-events: auto;      /* Allow interactions with popup content */
+    overflow: visible !important; /* Prevent overflow clipping */
+    max-width: none !important;  /* Allow the popup to have full width */
 }
 
 /* Pop-up styles */
@@ -137,6 +137,10 @@
 /* Tooltip-style pop-up offset */
 .mapboxgl-popup-content {
     max-width: 300px;
+    overflow: visible;
 }
-  
-  
+ 
+/* Ensure the map layers have lower z-index */
+.mapboxgl-canvas {
+    z-index: 1; /* Ensure map content stays below the popup */
+}
